@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import Nav from "./components/nav";
 import Lms from "./components/lms";
+import Footer from "./components/footer";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/lms" element={<Lms />} />
         </Routes>
       </BrowserRouter>
+      <Footer></Footer>
     </>
   );
 }
