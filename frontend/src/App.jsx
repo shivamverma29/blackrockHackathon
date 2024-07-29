@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import VideoUpload from "./components/VideoUpload";
 import Poster from "./components/aiposter";
 import Chatbot from "./components/chatbot";
+import Crowd from "./components/crowd";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
           <Route path="/uploadvideo" element={<VideoUpload />} />
           <Route path="/guidex" element={<Guidex />} />
           <Route path="/poster" element={<Poster />} />
+          <Route path="/crowd" element={<Crowd />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
