@@ -50,9 +50,9 @@ const Nav = () => {
             Add Success Stories
           </li>
         </a>
-        <a href="/events">
+        <a href="/lms">
           <li class="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            Explore
+            LMS
           </li>
         </a>
         <a href="/guidex">

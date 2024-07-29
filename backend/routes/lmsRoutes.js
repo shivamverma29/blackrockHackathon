@@ -13,16 +13,14 @@ cloudinary.config({
 });
 
 const uploadedMedia = [];
-// router2.get("/hi", (req, res) => {
-//   res.send("Hi");
-// });
+
 router2.post("/mediaUpload", async (req, res) => {
-  console.log(req);
+  // console.log("hi");
   try {
     if (!req.files || Object.keys(req.files).length === 0)
       return res.status(400).send({ msg: "No files were uploaded" });
 
-    console.log(req.files);
+    // console.log(req.files);
     const file = req.files.file;
 
     if (file.size > 1024 * 1024 * 100) {

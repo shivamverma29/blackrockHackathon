@@ -34,8 +34,8 @@ app.use(express.json());
 
 // app.use("/api/auth", authRoutes);
 // app.use("/api/userPreference", userPreferenceRoutes);
-app.use("/api", require("./Routes/lmsRoutes"));
-// app.use("/api", require("./Routes/categoryRoute"));
+app.use("/api", require("./routes/lmsRoutes.js"));
+// app.use("/api", require("./routes/categoryRoute"));
 
 app.post("/generate-poster", (req, res) => {
   const { companyName, postDescription } = req.body;
