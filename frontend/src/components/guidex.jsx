@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import HashLoader from 'react-spinners/HashLoader';
 const Guidex = () => {
   const [formData, setFormData] = useState({
     state: '',
@@ -7,6 +8,9 @@ const Guidex = () => {
     age: '',
     invest: ''
   });
+  const [options, setOptions] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,15 +20,54 @@ const Guidex = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  function extractJsonString(str) {
+    const regex = /```json([\s\S]*?)```/;
+    const match = str.match(regex);
+    if (match && match[1]) {
+      return match[1].trim();
+    }
+    return null;
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    const genAI = new GoogleGenerativeAI("AIzaSyCLzLgikraSgNptmvZrMsGx9kWkVKbDo90");
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+    const prompt = `Generate a json object on entrepreneurship option on the basis of ${formData.state},${formData.age},${formData.gender} and ${formData.invest} investments.Structure of json "entrepreneurship_options": [
+    {
+      "option_name": "Startup Accelerator",
+      "description": "A program that provides mentorship, resources, and funding to early-stage startups.",
+      "investment_range": {
+        "minimum": 88000,
+        "maximum": 9999999
+      },
+      "target_audience": "Founders with a validated idea and a strong team.",
+      "benefits": [
+        "Access to mentors and advisors",
+        "Networking opportunities",
+        "Funding",
+        "Workspace",
+        "Support services"
+      ],
+      "location": "UP",
+      "website": "https://www.exampleaccelerator.com"
+    },`;
+    const result = await model.generateContent(prompt);
+    const jsonString = JSON.parse(extractJsonString(result.response.text()));
+    setOptions(jsonString.entrepreneurship_options);
+    setShowPopup(true);
+    setLoading(false);
     setFormData({
-        state: '',
-        gender: '',
-        age: '',
-        invest: ''
-      })
-    console.log(formData);
+      state: '',
+      gender: '',
+      age: '',
+      invest: ''
+    });
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -122,6 +165,36 @@ const Guidex = () => {
           </div>
         </div>
       </div>
+      {loading && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="loader"><HashLoader color="white" /></div>
+        </div>
+      )}
+      {showPopup && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="relative bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-8 max-w-md mx-auto z-50 max-h-[90vh] overflow-y-auto" style={{minWidth:"806px"}}>
+            <h2 className="text-2xl font-bold mb-4 text-black">Entrepreneurship Options</h2>
+            <button onClick={handleClosePopup} className="absolute top-4 right-4 text-black">X</button>
+            <div className="space-y-4">
+              {options.map((option, index) => (
+                <div key={index} className="bg-white bg-opacity-25 p-4 rounded-lg text-white">
+                  <h3 className="text-xl font-semibold text-black"><strong>{option.option_name}</strong></h3>
+                  <p>{option.description}</p>
+                  <p><strong className='text-black'>Investment Range:</strong> ${option.investment_range.minimum} - ${option.investment_range.maximum}</p>
+                  <p><strong className='text-black'>Target Audience:</strong> {option.target_audience}</p>
+                  <ul className="list-disc list-inside">
+                    <strong className='text-black'>Benefits:</strong>
+                    {option.benefits.map((benefit, i) => (
+                      <li key={i}>{benefit}</li>
+                    ))}
+                  </ul>
+                  <a href={option.website} target="_blank" rel="noopener noreferrer" className="text-blue-300">Learn More</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

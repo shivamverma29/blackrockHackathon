@@ -10,7 +10,7 @@ import Poster from "./components/aiposter";
 function App() {
   return (
     <>
-      <Nav></Nav>
+      <Nav/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
