@@ -7,14 +7,17 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
+  cloud_name: "dqf4waory",
+  api_key: "636383912193541",
+  api_secret: "lrJvdfaT9KAcF86hqVa3q7pg2WU",
 });
 
 const uploadedMedia = [];
-
+// router2.get("/hi", (req, res) => {
+//   res.send("Hi");
+// });
 router2.post("/mediaUpload", async (req, res) => {
+  console.log(req);
   try {
     if (!req.files || Object.keys(req.files).length === 0)
       return res.status(400).send({ msg: "No files were uploaded" });

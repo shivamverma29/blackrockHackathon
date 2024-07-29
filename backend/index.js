@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const app = express();
-const authRoutes = require("./Routes/authRoutes.js");
-const userPreferenceRoutes = require("./Routes/userPreferenceRoutes.js");
+// const authRoutes = require("./Routes/authRoutes.js");
+// const userPreferenceRoutes = require("./Routes/userPreferenceRoutes.js");
 
 app.use(cors());
 app.use(
@@ -28,7 +28,7 @@ app.use(express.json());
 app.use("/api", require("./Routes/lmsRoutes"));
 // app.use("/api", require("./Routes/categoryRoute"));
 
-app.listen(4000, async () => {
+app.listen(5000, async () => {
   console.log("connected to port" + 4000);
   try {
     await mongoose.connect(
