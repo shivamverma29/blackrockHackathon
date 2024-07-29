@@ -6,6 +6,7 @@ import Lms from "./components/lms";
 import Guidex from "./components/guidex";
 import Footer from "./components/footer";
 import VideoUpload from "./components/VideoUpload";
+import Poster from "./components/aiposter";
 function App() {
   return (
     <>
@@ -14,10 +15,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/lms" element={<Lms />} />
-
           <Route path="/uploadvideo" element={<VideoUpload />} />
-
           <Route path="/guidex" element={<Guidex />} />
+          <Route path="/poster" element={<Poster />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>

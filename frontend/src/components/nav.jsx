@@ -5,7 +5,7 @@ const Nav = () => {
     <nav class="container flex items-center justify-around pt-4 pb-3 sticky top-0 z-50">
       <div
         class="cursor-pointer rounded-full p-4 transition duration-300 lg:py-3.5 lg:px-6 bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
-        style={{transform:"none"}}   
+        style={{ transform: "none" }}
       >
         <a href="/">
           <svg
@@ -28,9 +28,9 @@ const Nav = () => {
       </div>
       <ul
         class="hidden items-center gap-1 rounded-full px-4 lg:flex bg-gray-200 bg-opacity-60 hover:bg-opacity-80 backdrop-blur text-gray-900"
-        style={{transform: "none",transformOrigin:"50% 50% 0px"}}
+        style={{ transform: "none", transformOrigin: "50% 50% 0px" }}
       >
-        <a href="/hire">
+        <a href="/">
           <li class="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
             Home
           </li>
@@ -40,9 +40,9 @@ const Nav = () => {
             About Us
           </li>
         </a>
-        <a href="/projects">
+        <a href="/poster">
           <li class="cursor-pointer select-none whitespace-nowrap rounded-full p-3 font-semibold transition duration-300 hover:text-blue-400">
-            Contact
+            AI poster
           </li>
         </a>
         <a href="/community">
@@ -62,11 +62,11 @@ const Nav = () => {
         </a>
       </ul>
       <div class="flex items-center gap-4">
-        <div style={{transform: "none", transformOrigin: "100% 50% 0px"}}>
+        <div style={{ transform: "none", transformOrigin: "100% 50% 0px" }}>
           <div class="flex gap-3 ">
             <button
-                // style={{position:"relative",right:"90px"}}
-              type="button" 
+              // style={{position:"relative",right:"90px"}}
+              type="button"
               class="bg-blue-500  inline-flex items-center whitespace-nowrap select-none justify-center font-medium gap-2 duration-200 ring-offset-background transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none rounded-lg disabled:opacity-50 disabled:grayscale bg-primary text-primary-foreground hover:bg-opacity-60 text-sm md:text-md px-5 md:px-7 py-2 md:py-3 shadow-lg"
             >
               Sign up
