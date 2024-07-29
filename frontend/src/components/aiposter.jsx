@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import HashLoader from 'react-spinners/HashLoader';
 
 function Poster() {
   const [companyName, setCompanyName] = useState("");
   const [postDescription, setPostDescription] = useState("");
   const [poster, setPoster] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const generatePoster = async () => {
+    setLoader(true);
     const response = await fetch("http://localhost:5000/generate-poster", {
       method: "POST",
       headers: {
@@ -13,9 +16,10 @@ function Poster() {
       },
       body: JSON.stringify({ companyName, postDescription }),
     });
-
     const data = await response.json();
     const { generated_image } = data;
+  
+    setLoader(false);
     setPoster(generated_image);
   };
 
@@ -83,7 +87,11 @@ function Poster() {
               </div>
             </div>
           </div>
-
+          {loader && (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+            <div className="loader"><HashLoader color="white" /></div>
+          </div>
+          )}
           <div className="w-full flex justify-center">
             {poster && (
               <div className="mt-6 text-center">
@@ -109,6 +117,7 @@ function Poster() {
         </div>
       </div>
     </div>
+
   );
 }
 
