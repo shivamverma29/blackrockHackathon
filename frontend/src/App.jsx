@@ -9,7 +9,7 @@ import VideoUpload from "./components/VideoUpload";
 function App() {
   return (
     <>
-      <Nav></Nav>
+      <Nav/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
