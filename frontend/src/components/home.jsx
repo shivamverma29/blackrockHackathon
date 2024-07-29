@@ -1,8 +1,7 @@
 import React from "react";
-
 export default function Home() {
   return (
-    <>
+      <>
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center"
             style={{
