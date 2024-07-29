@@ -4,6 +4,7 @@ import Home from "./components/home";
 import Nav from "./components/nav";
 import Lms from "./components/lms";
 import Footer from "./components/footer";
+import VideoUpload from "./components/VideoUpload";
 function App() {
   return (
     <>
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/lms" element={<Lms />} />
+          <Route path="/uploadvideo" element={<VideoUpload />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
