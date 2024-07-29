@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./video.css";
+// import "./video.css";
 import axios from "axios";
 
 function VideoUpload() {
