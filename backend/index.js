@@ -5,17 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const app = express();
+const { PythonShell } = require('python-shell');
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const https = require("https");
-// const fs = require("fs");
 const path = require("path");
-// const authRoutes = require("./Routes/authRoutes.js");
-// const userPreferenceRoutes = require("./Routes/userPreferenceRoutes.js");
-app.use(bodyParser.json());
 
-// Serve static files from the "downloads" directory
-// app.use("/downloads", express.static(path.join(__dirname, "downloads")));
+app.use(bodyParser.json());
+const { exec } = require('child_process');
 
 app.use(cors());
 app.use(
@@ -25,18 +22,8 @@ app.use(
 );
 app.use(express.json());
 
-// const cookieParser = require("cookie-parser");
-
-// app.use(cookieParser());
-
-// app.use("/api", require("./Routes/contentUploadRoute"));
-// dotenv.config();
-
-// app.use("/api/auth", authRoutes);
-// app.use("/api/userPreference", userPreferenceRoutes);
 app.use("/api", require("./routes/lmsRoutes.js"));
 app.use("/api", require("./routes/Auth.js"));
-// app.use("/api", require("./routes/categoryRoute"));
 
 app.post("/generate-poster", (req, res) => {
   const { companyName, postDescription } = req.body;
@@ -76,11 +63,39 @@ app.post("/generate-poster", (req, res) => {
   request.end();
 });
 
+app.post('/predict', (req, res) => {
+  const { company, amount, time } = req.body;
+
+  if (!company || !amount || !time) {
+    return res.status(400).json({ error: 'Missing required parameters' });
+  }
+
+  const script = `python predict.py ${company} ${amount} ${time}`;
+
+  exec(script, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error.message}`);
+      return res.status(500).json({ error: error.message });
+    }
+    if (stderr) {
+      console.error(`Stderr: ${stderr}`);
+      return res.status(500).json({ error: stderr });
+    }
+    try {
+      res.json(JSON.parse(stdout));
+    } catch (parseError) {
+      console.error(`Parse Error: ${parseError.message}`);
+      res.status(500).json({ error: 'Failed to parse JSON output' });
+    }
+  });
+});
+
 app.listen(5000, async () => {
-  console.log("connected to port" + 4000);
+  console.log("connected to port : " + 5000);
   try {
     await mongoose.connect(
-      "mongodb+srv://sverma4be21:7vh4djSQN9HoRhus@cluster0.tnnmrss.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      "mongodb+srv://sverma4be21:7vh4djSQN9HoRhus@cluster0.tnnmrss.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      { useNewUrlParser: true, useUnifiedTopology: true }
     );
     console.log("connected to mongodb");
   } catch (error) {
