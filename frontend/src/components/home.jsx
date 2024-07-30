@@ -1,10 +1,10 @@
 import React from "react";
-import Chatbot from "./chatbot";
+// import Chatbot from "./chatbot";
 export default function Home() {
   return (
     <>
       <main>
-        <Chatbot />
+        {/* <Chatbot /> */}
         <div
           className="relative pt-16 pb-32 flex content-center items-center justify-center"
           style={{
