@@ -8,14 +8,8 @@ const app = express();
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const https = require("https");
-// const fs = require("fs");
 const path = require("path");
-// const authRoutes = require("./Routes/authRoutes.js");
-// const userPreferenceRoutes = require("./Routes/userPreferenceRoutes.js");
 app.use(bodyParser.json());
-
-// Serve static files from the "downloads" directory
-// app.use("/downloads", express.static(path.join(__dirname, "downloads")));
 
 app.use(cors());
 app.use(
@@ -24,18 +18,7 @@ app.use(
   })
 );
 app.use(express.json());
-
-// const cookieParser = require("cookie-parser");
-
-// app.use(cookieParser());
-
-// app.use("/api", require("./Routes/contentUploadRoute"));
-// dotenv.config();
-
-// app.use("/api/auth", authRoutes);
-// app.use("/api/userPreference", userPreferenceRoutes);
 app.use("/api", require("./routes/lmsRoutes.js"));
-// app.use("/api", require("./routes/categoryRoute"));
 
 app.post("/generate-poster", (req, res) => {
   const { companyName, postDescription } = req.body;
@@ -75,6 +58,63 @@ app.post("/generate-poster", (req, res) => {
   request.end();
 });
 
+
+
+////////////////////////
+const questionSchema = new mongoose.Schema({
+  question: String,
+  answers: [String],
+});
+
+const Question = mongoose.model('Question', questionSchema);
+
+// API endpoints
+app.post('/questions', async (req, res) => {
+  try {
+    const newQuestion = new Question(req.body);
+    await newQuestion.save();
+    res.status(201).send(newQuestion);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+app.get('/questions', async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.status(200).send(questions);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+
+// Endpoint to get a question by ID
+app.get('/questions/:id', async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+    if (!question) return res.status(404).send('Question not found');
+    res.status(200).send(question);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// Endpoint to update a question with a new answer
+app.put('/questions/:id', async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id);
+    if (!question) return res.status(404).send('Question not found');
+    question.answers.push(req.body.answer);
+    await question.save();
+    
+    res.status(200).send(question);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+/////////////////////////////////////////////
 app.listen(5000, async () => {
   console.log("connected to port" + 4000);
   try {
