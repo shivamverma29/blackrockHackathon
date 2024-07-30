@@ -11,6 +11,7 @@ import ResourceSearch from "./components/resourceSearch";
 import AskQuestionPage from "./components/AskQuestion";
 import ViewQuestionsPage from "./components/ViewQuestion";
 import AnswerQuestionPage from "./components/AnswerQuestion";
+import Compare from "./components/compare";
 function App() {
   return (
     <>
@@ -26,7 +27,8 @@ function App() {
           <Route path="/AskQuestion" element={<AskQuestionPage />} />
           <Route path="/ViewQuestion" element={<ViewQuestionsPage />} />
           <Route path="/answerquestion/:id" element={<AnswerQuestionPage />} />
-        
+
+          <Route path="/compare" element={<Compare />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
