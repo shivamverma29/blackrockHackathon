@@ -61,32 +61,7 @@ app.post("/generate-poster", (req, res) => {
   request.end();
 });
 
-app.post('/predict', (req, res) => {
-  const { company, amount, time } = req.body;
 
-  if (!company || !amount || !time) {
-    return res.status(400).json({ error: 'Missing required parameters' });
-  }
-
-  const script = `python predict.py ${company} ${amount} ${time}`;
-
-  exec(script, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`);
-      return res.status(500).json({ error: error.message });
-    }
-    if (stderr) {
-      console.error(`Stderr: ${stderr}`);
-      return res.status(500).json({ error: stderr });
-    }
-    try {
-      res.json(JSON.parse(stdout));
-    } catch (parseError) {
-      console.error(`Parse Error: ${parseError.message}`);
-      res.status(500).json({ error: 'Failed to parse JSON output' });
-    }
-  });
-});
 
 app.post('/predict', (req, res) => {
   const { company, amount, time } = req.body;
