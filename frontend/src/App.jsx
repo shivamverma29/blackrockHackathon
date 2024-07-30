@@ -7,6 +7,7 @@ import Guidex from "./components/guidex";
 import Footer from "./components/footer";
 import VideoUpload from "./components/VideoUpload";
 import Chatbot from "./components/chatbot";
+import Compare from "./components/compare";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/lms" element={<Lms />} />
           <Route path="/uploadvideo" element={<VideoUpload />} />
           <Route path="/guidex" element={<Guidex />} />
+          <Route path="/compare" element={<Compare />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
