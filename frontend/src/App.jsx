@@ -7,20 +7,28 @@ import Guidex from "./components/guidex";
 import Footer from "./components/footer";
 import VideoUpload from "./components/VideoUpload";
 import Chatbot from "./components/chatbot";
+import Login from "./pages/login";
+import Open from "./routing/OpenRoute";
+import Protected from "./routing/ProtectedRoute";
 function App() {
   return (
     <>
+      <BrowserRouter>
       <Nav />
       <Chatbot />
-      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/lms" element={<Lms />} />
-          <Route path="/uploadvideo" element={<VideoUpload />} />
-          <Route path="/guidex" element={<Guidex />} />
+          
+          <Route path="/login" element={<Open><Login /></Open>} />
+          
+          
+          <Route path="/lms" element={<Protected><Lms /></Protected>} />
+          <Route path="/uploadvideo" element={<Protected><VideoUpload /></Protected>} />
+          <Route path="/guidex" element={<Protected><Guidex /></Protected>} />
+          
         </Routes>
-      </BrowserRouter>
       <Footer></Footer>
+      </BrowserRouter>
     </>
   );
 }
