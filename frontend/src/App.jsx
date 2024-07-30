@@ -10,6 +10,11 @@ import Chatbot from "./components/chatbot";
 import Login from "./pages/login";
 import Open from "./routing/OpenRoute";
 import Protected from "./routing/ProtectedRoute";
+import ResourceSearch from "./components/resourceSearch";
+import AskQuestionPage from "./components/AskQuestion";
+import ViewQuestionsPage from "./components/ViewQuestion";
+import AnswerQuestionPage from "./components/AnswerQuestion";
+import Compare from "./components/compare";
 function App() {
   return (
     <>
@@ -25,6 +30,12 @@ function App() {
           <Route path="/lms" element={<Protected><Lms /></Protected>} />
           <Route path="/uploadvideo" element={<Protected><VideoUpload /></Protected>} />
           <Route path="/guidex" element={<Protected><Guidex /></Protected>} />
+          <Route path="/search" element={<ResourceSearch />} />
+          <Route path="/AskQuestion" element={<AskQuestionPage />} />
+          <Route path="/ViewQuestion" element={<ViewQuestionsPage />} />
+          <Route path="/answerquestion/:id" element={<AnswerQuestionPage />} />
+
+          <Route path="/compare" element={<Compare />} />
           
         </Routes>
       <Footer></Footer>
